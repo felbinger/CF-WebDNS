@@ -1,6 +1,10 @@
 storage = window.sessionStorage;
 const token = storage.getItem('token');
 
+if (!token) {
+    window.location = "login.html";
+}
+
 async function updateDnsRecordTable() {
     (await getDnsRecords(
         token,
