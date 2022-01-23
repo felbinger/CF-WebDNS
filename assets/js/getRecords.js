@@ -1,4 +1,4 @@
-storage = window.localStorage;
+storage = window.sessionStorage;
 const token = storage.getItem('token');
 
 async function updateDnsRecordTable() {
@@ -11,6 +11,7 @@ async function updateDnsRecordTable() {
                 <td style="width: 5%">${record['type']}</td>
                 <td style="width: 15%">${record['name']}</td>
                 <td>${record['content']}</td>
+                <td>${record['proxied']}</td>
                 <td style="width: 5%">
                     <a href="#"><i class="fas fa-pen"></i></a>
                 </td>

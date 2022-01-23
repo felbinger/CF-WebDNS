@@ -50,7 +50,7 @@
             e.preventDefault();
             let token = document.getElementById('token').value;
             if (token.length > 35 && await isTokenValid(token)) {
-                let storage = window.localStorage;
+                let storage = window.sessionStorage;
                 storage.setItem('token', token);
                 window.location = "index.html"
             } else {
