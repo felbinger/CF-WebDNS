@@ -1,6 +1,9 @@
 storage = window.sessionStorage;
 const token = storage.getItem('token');
 
+let updateDnsRecordModal = new bootstrap.Modal(document.getElementById('updateDnsRecordModal'), {});
+let createDnsRecordModal = new bootstrap.Modal(document.getElementById('createDnsRecordModal'), {});
+
 if (!token) {
     window.location = "login.html";
 }
@@ -32,7 +35,10 @@ async function openDnsRecordUpdateModal(recordId) {
     document.getElementById("updateRecordName").value = responseData.name;
     document.getElementById("updateRecordContent").value = responseData.content;
     document.getElementById("updateRecordProxied").checked = responseData.proxied;
-    new bootstrap.Modal(document.getElementById('updateDnsRecordModal'), {}).show();
+    updateDnsRecordModal.show();
+}
+async function openDnsRecordCreateModal(recordId) {
+    createDnsRecordModal.show();
 }
 
 // add dns records to html table
@@ -73,8 +79,7 @@ document.getElementById('createDnsRecord').addEventListener('click', async e => 
             proxied: proxied,
         });
 
-    // TODO modal won't hide...
-    new bootstrap.Modal(document.getElementById('createDnsRecordModal'), {}).hide();
+    createDnsRecordModal.hide();
     await updateDnsRecordTable();
 });
 
@@ -102,8 +107,7 @@ document.getElementById('updateDnsRecord').addEventListener('click', async e => 
             proxied: proxied,
         });
 
-    // TODO modal won't hide...
-    new bootstrap.Modal(document.getElementById('updateDnsRecordModal'), {}).hide();
+    updateDnsRecordModal.hide();
     await updateDnsRecordTable();
 });
 
@@ -117,7 +121,6 @@ document.getElementById('deleteDnsRecord').addEventListener('click', async e => 
         console.log("[Delete DNS Record] Done!");
     }
 
-    // TODO modal won't hide...
-    new bootstrap.Modal(document.getElementById('updateDnsRecordModal'), {}).hide();
+    updateDnsRecordModal.hide();
     await updateDnsRecordTable();
 });
