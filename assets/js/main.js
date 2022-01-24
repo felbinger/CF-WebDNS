@@ -67,16 +67,44 @@ document.getElementById('createDnsRecord').addEventListener('click', async e => 
 
     await createDnsRecords(
         token, zoneId, {
-            "type": type,
-            "name": name,
-            "content": content,
-            "proxied": proxied,
+            type: type,
+            name: name,
+            content: content,
+            proxied: proxied,
         });
+
+    // TODO modal won't hide...
+    new bootstrap.Modal(document.getElementById('createDnsRecordModal'), {}).hide();
     await updateDnsRecordTable();
 });
 
 document.getElementById('updateDnsRecord').addEventListener('click', async e => {
     e.preventDefault();
+    let zoneId = document.getElementById("zones").value;
+    let recordId = document.getElementById("updateRecordId").value;
+    let type = document.getElementById("updateRecordType").value;
+    let name = document.getElementById("updateRecordName").value;
+    let content = document.getElementById("updateRecordContent").value;
+    let proxied = document.getElementById("updateRecordProxied").checked;
+
+    if (!zoneId || !recordId || !type || !name || !content) {
+        console.log("[Update DNS Record] Error, invalid data!")
+        return
+    }
+
+    await updateDnsRecords(
+        token,
+        zoneId,
+        recordId, {
+            type: type,
+            name: name,
+            content: content,
+            proxied: proxied,
+        });
+
+    // TODO modal won't hide...
+    new bootstrap.Modal(document.getElementById('updateDnsRecordModal'), {}).hide();
+    await updateDnsRecordTable();
 });
 
 document.getElementById('deleteDnsRecord').addEventListener('click', async e => {
