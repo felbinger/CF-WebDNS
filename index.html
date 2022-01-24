@@ -18,7 +18,7 @@
                 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
                 crossorigin="anonymous"></script>
         <script defer src="assets/js/functions.js"></script>
-        <script defer src="assets/js/getRecords.js"></script>
+        <script defer src="assets/js/main.js"></script>
     </head>
 
     <body class="bg-dark">
@@ -32,16 +32,109 @@
                     </select>
                     <table class="table">
                         <thead>
-                        <tr>
-                            <th scope="col">Type</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Content</th>
-                            <th scope="col">Proxied</th>
-                            <th scope="col"><a href="#"><i class="fas fa-plus"></i></a></th>
-                        </tr>
+                            <tr>
+                                <th scope="col">Type</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Content</th>
+                                <th scope="col">Proxied</th>
+
+                                <th scope="col"><a data-bs-toggle="modal" data-bs-target="#createDnsRecordModal"><i class="fas fa-plus"></i></a></th>
+                            </tr>
                         </thead>
                         <tbody id="records"></tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal: Create DNS Record -->
+        <div class="modal fade" id="createDnsRecordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="createDnsRecordModalLabel">Create DNS Record</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="mb-3">
+                                <label for="createRecordType" class="col-form-label">Type:</label>
+                                <select class="form-control" id="createRecordType">
+                                    <option>A</option>
+                                    <option>AAAA</option>
+                                    <option>CAA</option>
+                                    <option>CNAME</option>
+                                    <option>TXT</option>
+                                    <option>SRV</option>
+                                    <option>MX</option>
+                                    <option>SSHFP</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="createRecordName" class="col-form-label">Name:</label>
+                                <input type="text" class="form-control" id="createRecordName">
+                            </div>
+                            <div class="mb-3">
+                                <label for="createRecordContent" class="col-form-label">Content:</label>
+                                <textarea class="form-control" id="createRecordContent"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-check-input" type="checkbox" id="createRecordProxied">
+                                <label class="form-check-label" for="createRecordProxied">Proxied</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-primary" id="createDnsRecord">Create</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Modal: Update DNS Record -->
+        <div class="modal fade" id="updateDnsRecordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="updateDnsRecordModalLabel">Update DNS Record</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <input type="hidden" id="updateRecordId">
+                            <div class="mb-3">
+                                <label for="updateRecordType" class="col-form-label">Type:</label>
+                                <select class="form-control" id="updateRecordType">
+                                    <option>A</option>
+                                    <option>AAAA</option>
+                                    <option>CAA</option>
+                                    <option>CNAME</option>
+                                    <option>TXT</option>
+                                    <option>SRV</option>
+                                    <option>MX</option>
+                                    <option>SSHFP</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateRecordName" class="col-form-label">Name:</label>
+                                <input type="text" class="form-control" id="updateRecordName">
+                            </div>
+                            <div class="mb-3">
+                                <label for="updateRecordContent" class="col-form-label">Content:</label>
+                                <textarea class="form-control" id="updateRecordContent"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <input class="form-check-input" type="checkbox" id="updateRecordProxied">
+                                <label class="form-check-label" for="updateRecordProxied">Proxied</label>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" id="deleteDnsRecord">Delete</button>
+                        <button type="button" class="btn btn-primary" id="updateDnsRecord">Update</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    </div>
                 </div>
             </div>
         </div>

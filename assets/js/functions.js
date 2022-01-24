@@ -57,6 +57,25 @@ async function getDnsRecords(token, zone_id) {
     return data;
 }
 
+async function getDnsRecord(token, zone_id, record_id) {
+    let response = await fetch(`${base}/zones/${zone_id}/dns_records/${record_id}`, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+        },
+    });
+    let responseData = await response.json();
+    return {
+        id: responseData.result.id,
+        type: responseData.result.type,
+        name: responseData.result.name,
+        content: responseData.result.content,
+        proxied: responseData.result.proxied,
+    };
+}
+
 async function createDnsRecords(token, zone_id, {type, name, content, proxied}) {
     let response = await fetch(`${base}/zones/${zone_id}/dns_records`, {
         method: 'POST',

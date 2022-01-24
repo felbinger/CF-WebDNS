@@ -18,6 +18,7 @@
                 integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
                 crossorigin="anonymous"></script>
         <script defer src="assets/js/functions.js"></script>
+        <script defer src="assets/js/login.js"></script>
     </head>
 
     <body class="bg-dark">
@@ -46,23 +47,4 @@
             </div>
         </div>
     </body>
-    <script>
-        document.getElementById('login').addEventListener('click', async e => {
-            e.preventDefault();
-            let token = document.getElementById('token').value;
-            if (token.length > 35 && await isTokenValid(token)) {
-                let storage = window.sessionStorage;
-                storage.setItem('token', token);
-                window.location = "index.html"
-            } else {
-                document.getElementById('loginError').outerHTML = `
-                    <div class="form-group">
-                        <div class="alert alert-danger">
-                            <span class="fa fa-info-circle"></span>
-                            Invalid Token!
-                        </div>
-                    </div>`;
-            }
-        });
-    </script>
 </html>
