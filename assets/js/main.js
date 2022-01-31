@@ -36,7 +36,7 @@ async function updateDnsRecordTable() {
                 <td style="width: 5%">${escapeHtml(record['type'])}</td>
                 <td style="width: 15%">${escapeHtml(record['name'])}</td>
                 <td>${escapeHtml(record['content'])}</td>
-                <td${Boolean(record['proxied'])}</td>
+                <td>${Boolean(record['proxied'])}</td>
                 <td style="width: 5%">
                     <a onclick="openDnsRecordUpdateModal(\'${escapeHtml(record['id'])}\')"><i class="fas fa-pen"></i></a>
                 </td>
