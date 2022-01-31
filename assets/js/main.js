@@ -1,3 +1,20 @@
+function escapeHtml(text) {
+    if (!text) {
+        return text;
+    }
+
+    const map = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+    };
+
+    return text.replace(/[&<>"']/g, function (m) { return map[m]; });
+}
+
+
 storage = window.sessionStorage;
 const token = storage.getItem('token');
 
@@ -16,12 +33,12 @@ async function updateDnsRecordTable() {
     )).forEach((record, i) => {
         document.getElementById('records').innerHTML += `
             <tr>
-                <td style="width: 5%">${record['type']}</td>
-                <td style="width: 15%">${record['name']}</td>
-                <td>${record['content']}</td>
-                <td>${record['proxied']}</td>
+                <td style="width: 5%">${escapeHtml(record['type'])}</td>
+                <td style="width: 15%">${escapeHtml(record['name'])}</td>
+                <td>${escapeHtml(record['content'])}</td>
+                <td>${Boolean(record['proxied'])}</td>
                 <td style="width: 5%">
-                    <a onclick="openDnsRecordUpdateModal(\'${record['id']}\')"><i class="fas fa-pen"></i></a>
+                    <a onclick="openDnsRecordUpdateModal(\'${escapeHtml(record['id'])}\')"><i class="fas fa-pen"></i></a>
                 </td>
             </tr>`;
     });
@@ -72,14 +89,9 @@ document.getElementById('createDnsRecord').addEventListener('click', async e => 
     }
 
     await createDnsRecords(
-        token, zoneId, {
-            type: type,
-            name: name,
-            content: content,
-            proxied: proxied,
-        });
-
-    createDnsRecordModal.hide();
+        token, zoneId,
+        { type, name, content, proxied }
+    );
     await updateDnsRecordTable();
 });
 
@@ -100,12 +112,9 @@ document.getElementById('updateDnsRecord').addEventListener('click', async e => 
     await updateDnsRecords(
         token,
         zoneId,
-        recordId, {
-            type: type,
-            name: name,
-            content: content,
-            proxied: proxied,
-        });
+        recordId,
+        { type, name, content, proxied, }
+    );
 
     updateDnsRecordModal.hide();
     await updateDnsRecordTable();
