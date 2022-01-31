@@ -1,7 +1,7 @@
 const base = 'https://webdns.an2ic3.workers.dev/client/v4';
 
 async function doCfRequest(method, url, token, body) {
-    await fetch(`${base}/${url}`, {
+    return fetch(`${base}/${url}`, {
         method: method,
         headers: {
             'Accept': 'application/json',
